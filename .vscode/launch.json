@@ -1,0 +1,57 @@
+{
+  "version": "0.2.0",
+  "configurations": [
+    {
+      "name": "Dev (debug)",
+      "request": "launch",
+      "type": "dart",
+      "program": "lib/main.dart",
+      "args": ["--dart-define=APP_ENV=dev"],
+      "codeLens": {
+        "for": ["run-file", "debug-file"],
+        "path": "lib/main.dart",
+        "title": "${debugType} · dev"
+      }
+    },
+    {
+      "name": "Staging (debug)",
+      "request": "launch",
+      "type": "dart",
+      "program": "lib/main.dart",
+      "args": ["--dart-define=APP_ENV=staging"],
+      "codeLens": {
+        "for": ["run-file", "debug-file"],
+        "path": "lib/main.dart",
+        "title": "${debugType} · staging"
+      }
+    },
+    {
+      "name": "Prod (debug)",
+      "request": "launch",
+      "type": "dart",
+      "program": "lib/main.dart",
+      "args": ["--dart-define=APP_ENV=prod"],
+      "codeLens": {
+        "for": ["run-file", "debug-file"],
+        "path": "lib/main.dart",
+        "title": "${debugType} · prod"
+      }
+    },
+    {
+      "name": "Dev (profile)",
+      "request": "launch",
+      "type": "dart",
+      "program": "lib/main.dart",
+      "flutterMode": "profile",
+      "args": ["--dart-define=APP_ENV=dev"]
+    },
+    {
+      "name": "Prod (release)",
+      "request": "launch",
+      "type": "dart",
+      "program": "lib/main.dart",
+      "flutterMode": "release",
+      "args": ["--dart-define=APP_ENV=prod"]
+    }
+  ]
+}
