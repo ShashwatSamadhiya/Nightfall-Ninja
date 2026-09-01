@@ -68,31 +68,34 @@ else
 fi
 
 echo "===================="
-echo "Building $env flavor"
+echo "Building $env environment"
 echo "===================="
 
-# The flavor reaches Dart automatically via Flutter's built-in `appFlavor`,
-# so no extra --dart-define is needed.
+# The environment reaches Dart/Gradle via --dart-define=APP_ENV=..., which
+# both selects the in-app APP_ENV config and (per android/app/build.gradle.kts)
+# drives the applicationIdSuffix/versionNameSuffix/app name for dev & staging.
+# There are no Gradle product flavors, so --flavor is intentionally not used.
+DART_DEFINE="--dart-define=APP_ENV=$env"
 
 case $BUILD_TYPE in
     apk)
         echo "📦 Building APK..."
-        $FLUTTER build apk --flavor "$env"
-        cp "build/app/outputs/flutter-apk/app-$env-release.apk" \
+        $FLUTTER build apk --release "$DART_DEFINE"
+        cp "build/app/outputs/flutter-apk/app-release.apk" \
            "./build_artifacts/nightfall-ninja-$env.apk"
         ;;
     ios)
         echo "🍎 Building iOS..."
-        $FLUTTER build ios --flavor "$env"
+        $FLUTTER build ios --release "$DART_DEFINE"
         ;;
     run)
         echo "🚀 Running app..."
-        $FLUTTER run --flavor "$env"
+        $FLUTTER run "$DART_DEFINE"
         ;;
     appbundle)
         echo "📦 Building App Bundle..."
-        $FLUTTER build appbundle --flavor "$env"
-        cp "build/app/outputs/bundle/${env}Release/app-$env-release.aab" \
+        $FLUTTER build appbundle --release "$DART_DEFINE"
+        cp "build/app/outputs/bundle/release/app-release.aab" \
            "./build_artifacts/nightfall-ninja-$env.aab"
         ;;
 esac
